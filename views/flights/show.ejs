@@ -1,0 +1,43 @@
+<%- include('../partials/header.ejs') %>
+
+<main id="show-flights-main">
+        <div id="flight-info-title">
+            <h1>Flight Info</h1>
+        </div>
+
+            <section id="show-page">
+                    <div class="show-info">Airline: <%= flight.airline %></div>
+                    <div class="show-info">Flight Number: <%= flight.flightNo %></div>
+                    <div class="show-info">Departs: <%= flight.airport %></div>
+                    <div class="show-info">Departs: <%= flight.departs %></div>
+                    <div class="show-info">Airport: <%= flight.airport %></div>
+</section>
+<form action="/flights/<%= flight._id%>/destinations" method="POST">
+    <select name="airport" id="">
+        <option value="AUS">AUS</option>
+        <option value="DEN">DEN</option>
+        <option value="DFW">DFW</option>
+        <option value="LAX">LAX</option>
+    </select>
+    <input type="datetime-local" name="arrival">
+    <button type="submit" >Add Destination</button>
+</form>
+<% flight.destinations.forEach(function(f) { %>
+    <%= f.arrival %>
+    <%= f.airport %>
+<% }); %>
+</main>
+<a href="/flights/<%=flight._id%>/tickets/new">Add Ticket</a>
+<% tickets.forEach(function(f) { %>
+    <%= f.seat %>
+    <%= f.price %>
+    <form
+    action="/tickets/<%= f._id %>?_method=DELETE"
+    method="POST"
+    class="delete-form"
+  >
+    <button type="submit">X</button>
+  </form>
+<% }); %>
+
+<%- include('../partials/footer.ejs') %>
